@@ -3,7 +3,7 @@ provider "aws" {
 }
 
 # Security group to allow SSH, HTTP, NodePort
-resource "aws_security_group" "dev_sg" {
+resource "aws_security_group" "dev_sg1" {
   name        = "dev-sg"
   description = "Allow SSH, HTTP, NodePort"
 
@@ -40,7 +40,7 @@ resource "aws_security_group" "dev_sg" {
 }
 
 # EC2 instance for app deployment
-resource "aws_instance" "app_server" {
+resource "aws_instance" "app_server1" {
   ami                    = var.ami_id
   instance_type          = var.instance_type
   key_name               = var.key_name
