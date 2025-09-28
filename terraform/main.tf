@@ -4,7 +4,7 @@ provider "aws" {
 
 # Security group to allow SSH, HTTP, NodePort
 resource "aws_security_group" "devnw_sg1" {
-  name        = "dev-sg"
+  name        = "dev-sgnw"
   description = "Allow SSH, HTTP, NodePort"
 
   ingress {
@@ -75,5 +75,5 @@ resource "aws_instance" "app_servernew" {
 
 # Output public IP
 output "instance_public_ip" {
-  value = aws_instance.app_server.public_ip
+  value = aws_instance.app_servernew.public_ip
 }
