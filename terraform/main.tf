@@ -16,7 +16,7 @@ resource "aws_security_group" "devnw_sg1" {
   }
 
   ingress {
-    description = "HTTP"
+    description = "App HTTP"
     from_port   = 8080
     to_port     = 8080
     protocol    = "tcp"
@@ -24,7 +24,7 @@ resource "aws_security_group" "devnw_sg1" {
   }
 
   ingress {
-    description = "NodePort (K8s)"
+    description = "Kubernetes NodePort"
     from_port   = 30080
     to_port     = 30080
     protocol    = "tcp"
@@ -37,6 +37,10 @@ resource "aws_security_group" "devnw_sg1" {
     protocol    = "-1"
     cidr_blocks = ["0.0.0.0/0"]
   }
+
+  tags = {
+    Name = "dev-sgnw"
+  }
 }
 
 # EC2 instance for app deployment
@@ -44,7 +48,7 @@ resource "aws_instance" "app_servernew" {
   ami                    = var.ami_id
   instance_type          = var.instance_type
   key_name               = var.key_name
-  vpc_security_group_ids = [aws_security_group.dev_sg.id]
+  vpc_security_group_ids = [aws_security_group.devnw_sg1.id]   # ✅ fixed reference
 
   user_data = <<-EOF
               #!/bin/bash
